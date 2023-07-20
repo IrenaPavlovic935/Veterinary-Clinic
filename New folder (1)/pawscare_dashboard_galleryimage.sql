@@ -1,0 +1,56 @@
+-- MySQL dump 10.13  Distrib 8.0.32, for Win64 (x86_64)
+--
+-- Host: localhost    Database: pawscare
+-- ------------------------------------------------------
+-- Server version	8.0.32
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!50503 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `dashboard_galleryimage`
+--
+
+DROP TABLE IF EXISTS `dashboard_galleryimage`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `dashboard_galleryimage` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `image` varchar(100) NOT NULL,
+  `url` varchar(200) NOT NULL,
+  `date_published` datetime(6) NOT NULL,
+  `user_id` int NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `dashboard_galleryimage_user_id_02949fd5_fk_auth_user_id` (`user_id`),
+  CONSTRAINT `dashboard_galleryimage_user_id_02949fd5_fk_auth_user_id` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=44 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `dashboard_galleryimage`
+--
+
+LOCK TABLES `dashboard_galleryimage` WRITE;
+/*!40000 ALTER TABLE `dashboard_galleryimage` DISABLE KEYS */;
+INSERT INTO `dashboard_galleryimage` VALUES (30,'gallery/0-02-05-37e0fffc31142e7c69cc56ea6cf2b98b093c1ce7ec06e71f6120b52ec388fd24_8082d96_si6eAIJ.jpg','/media/gallery/0-02-05-37e0fffc31142e7c69cc56ea6cf2b98b093c1ce7ec06e71f6120b52ec388fd24_8082d96_si6eAIJ.jpg','2023-07-18 20:28:09.397082',25),(31,'gallery/0-02-05-5c0a5a272a1ac2f899f30a273fb1b16d32528d780d1dd7c43eeca645fe861b70_e65cfc3_1NFK8mS.jpg','/media/gallery/0-02-05-5c0a5a272a1ac2f899f30a273fb1b16d32528d780d1dd7c43eeca645fe861b70_e65cfc3_1NFK8mS.jpg','2023-07-18 20:28:20.554189',25),(32,'gallery/0-02-05-0d3a674c76c891d073f7040fc4b48f2963a4f0e7a43346d064dcee7f5166a950_947aee2_FtYEZaY.jpg','/media/gallery/0-02-05-0d3a674c76c891d073f7040fc4b48f2963a4f0e7a43346d064dcee7f5166a950_947aee2_FtYEZaY.jpg','2023-07-18 20:36:20.776660',1),(33,'gallery/0-02-05-a81345320ee6d7c71da82d085d3e96f44e0b247d82a077961ebacbd2312207ae_af79749_GWMRl7W.jpg','/media/gallery/0-02-05-a81345320ee6d7c71da82d085d3e96f44e0b247d82a077961ebacbd2312207ae_af79749_GWMRl7W.jpg','2023-07-18 20:36:43.151767',1),(34,'gallery/0-02-05-5044cc5aa90d46ae891a18727a577f954f8e85e81e2bef457b8c615686f31ab6_33dfb22_VQmRyka.jpg','/media/gallery/0-02-05-5044cc5aa90d46ae891a18727a577f954f8e85e81e2bef457b8c615686f31ab6_33dfb22_VQmRyka.jpg','2023-07-18 20:37:06.688258',1),(35,'gallery/0-02-05-72b39331f609a1ad6366396d0473845ef8a42a624d9256f448af7f695ea1a7bd_e60720c_G1ceiSC.jpg','/media/gallery/0-02-05-72b39331f609a1ad6366396d0473845ef8a42a624d9256f448af7f695ea1a7bd_e60720c_G1ceiSC.jpg','2023-07-18 20:37:27.479824',1),(36,'gallery/0-02-05-e54ab0ff1e80b5864da575ff6bbd83002457208fa9c82764800fdf2db334a448_aea973d_AmHbBo5.jpg','/media/gallery/0-02-05-e54ab0ff1e80b5864da575ff6bbd83002457208fa9c82764800fdf2db334a448_aea973d_AmHbBo5.jpg','2023-07-18 20:37:37.971698',1),(37,'gallery/0-02-05-dbcf0c3fc50670371a88863091428db4b11816650ef2e8397a36f1b11a90dabd_31e7855_p3jmHj5.jpg','/media/gallery/0-02-05-dbcf0c3fc50670371a88863091428db4b11816650ef2e8397a36f1b11a90dabd_31e7855_p3jmHj5.jpg','2023-07-18 20:37:44.926980',1),(38,'gallery/0-02-05-5e3094768cc724688c9ee9a53cf2496425993ec4f61925d97bb906bae9ad31a0_e65f6efaaddd76f.jpg','/media/gallery/0-02-05-5e3094768cc724688c9ee9a53cf2496425993ec4f61925d97bb906bae9ad31a0_e65f6efaaddd76f.jpg','2023-07-18 20:37:54.649988',1),(39,'gallery/0-02-05-ba6ff18084c49c5cd0896ce742a8ca2c5cbbaf2fb24470084956e21643b831bc_9914ef1_WcSJLFU.jpg','/media/gallery/0-02-05-ba6ff18084c49c5cd0896ce742a8ca2c5cbbaf2fb24470084956e21643b831bc_9914ef1_WcSJLFU.jpg','2023-07-18 20:38:03.738448',1),(40,'gallery/0-02-05-41611ef2168c284d3b87039dce6b3fe1aeb925491757589edf4ba1ecd89e5389_2b445bc5ddb23fa.jpg','/media/gallery/0-02-05-41611ef2168c284d3b87039dce6b3fe1aeb925491757589edf4ba1ecd89e5389_2b445bc5ddb23fa.jpg','2023-07-18 20:49:54.377947',26),(41,'gallery/0-02-05-ee0a9aa727c80c4f45ae7d809116e42140787780704c979e0049b2cd5a86d9d1_a417a29_fPeSmgS.jpg','/media/gallery/0-02-05-ee0a9aa727c80c4f45ae7d809116e42140787780704c979e0049b2cd5a86d9d1_a417a29_fPeSmgS.jpg','2023-07-18 20:50:14.715917',26),(42,'gallery/0-02-05-e92579a8bbdc321f41e66665c98d72f741b668b8c493b74da233529d3a003a82_6d2871c_ezhlKOp.jpg','/media/gallery/0-02-05-e92579a8bbdc321f41e66665c98d72f741b668b8c493b74da233529d3a003a82_6d2871c_ezhlKOp.jpg','2023-07-18 20:50:31.616699',26),(43,'gallery/0-02-05-ebfd90558802e4ebebabb94573380b2d621ba43fb2f69fc908d5990c7b59b5e0_f531482_fxj2pTU.jpg','/media/gallery/0-02-05-ebfd90558802e4ebebabb94573380b2d621ba43fb2f69fc908d5990c7b59b5e0_f531482_fxj2pTU.jpg','2023-07-18 20:51:39.260228',26);
+/*!40000 ALTER TABLE `dashboard_galleryimage` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2023-07-20 10:33:33
