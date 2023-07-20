@@ -1,0 +1,34 @@
+{% extends 'includes/base.html' %}
+{% load static %}
+{% block content %}
+    <div class="login_form">
+        <h1>Login</h1>
+        <form action="" method=POST>
+            {% csrf_token %}
+            <form>
+                <div class="form-group-user">
+                    <div class="user_text">
+                        <label for="exampleInputEmail1">Username:</label>
+                    </div>
+                    <div class="user_form_icons">
+                        <i class="fa-solid fa-user" style="color:  #ffffff;"></i>
+                        <input type="text" class="form-control" name="username" aria-describedby="emailHelp" placeholder="Enter username">
+                    </div>
+                </div>
+                <div class="form-group-password">
+                    <div class="user_text">
+                        <label for="exampleInputPassword1">Password:</label><br/>
+                    </div>
+                    <div class="user_form_icons">
+                        <i class="fa-solid fa-key" style="color: #ffffff;"></i>
+                        <input type="password" class="form-control" name="password" placeholder="Password">
+                    </div>
+                </div>
+                
+                <button type="submitt" class="btn24_btn-primary">Login</button>
+                <a href="{% url 'users:register'  %}" class="Register-link">Register</a>
+            </form>
+        </form>
+    </div>
+
+{% endblock content %}

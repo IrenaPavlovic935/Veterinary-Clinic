@@ -1,0 +1,8 @@
+<form method="POST" action="{% url 'appointment:register_patient' %}">
+    {% csrf_token %}
+    <label for="patient_name">Ime pacijenta:</label>
+    <input type="text" id="patient_name" name="patient_name">
+  
+    <button type="submit">Registruj se kao pacijent</button>
+  </form>
+  

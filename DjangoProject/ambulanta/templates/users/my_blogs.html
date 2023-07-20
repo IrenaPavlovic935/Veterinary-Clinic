@@ -1,0 +1,21 @@
+{% extends 'includes/base.html' %}
+{% load static %}
+{% block content %}
+
+
+{% for post in posts %}
+<div class="post">
+  <h2>{{ post.title }}</h2>
+  <p>{{ post.body }}</p>
+  <p>Likes: {{ post.likes.count }}</p>
+  {% if post.header_image %}
+  <img src="{{ post.header_image.url }}">
+  {% endif %}
+  <p>{{ post.post_date }}</p>
+  <a href="{% url 'blog:update-post' post.pk %}">Edit Post</a>
+  <a href="{% url 'blog:delete-post' post.pk %}">Delete Post</a>
+</div>
+
+{% endfor %}
+
+{% endblock %}

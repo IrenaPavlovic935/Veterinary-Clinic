@@ -1,0 +1,33 @@
+{% extends 'includes/base.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="title_gallery">
+        <h1>Paws Care Gallery</h1>
+    </div>
+    <div class="image-griddd">
+        {% for gallery_image in gallery_images %}
+            <div class="image-containerrr">
+                <img src="{{ gallery_image.image.url }}" alt="Opis slike">
+                <div class="bottom_galerry">
+                    <div class="user_gallery">
+                        <img src="{{ gallery_image.user.profile.profile_pic.url }}" alt="Profilna slika korisnika" class="gallery-profile-image">
+                        <p>{{ gallery_image.user.username }}</p>
+                    </div>
+                        
+                    <div class="imageee-actionss">
+                        <button class="see-button" onclick="window.location.href='{% url "dashboard:detail_image" image_id=gallery_image.id %}'">Show</button>
+                        {% if  user.is_superuser or gallery_image.user == request.user %}
+                            <a href="{% url 'dashboard:delete_image' image_id=gallery_image.id %}">Delete</a>
+                        {% endif %}
+                      
+                    </div>
+                    
+                   
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
+
+  

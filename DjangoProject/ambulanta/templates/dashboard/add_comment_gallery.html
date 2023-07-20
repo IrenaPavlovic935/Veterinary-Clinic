@@ -1,0 +1,15 @@
+{% extends 'includes/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="parent_comment_div">
+  <div class="comment_div">
+    <h1>Add your comment</h1>
+    <form method="POST" action="{% url 'dashboard:add_comment' image_id=image.id %}">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit" class="btn btn-primary"> Add Comment</button>
+    </form>
+  </div>
+</div>
+{% endblock %}

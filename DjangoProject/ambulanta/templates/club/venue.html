@@ -1,0 +1,50 @@
+{% extends 'includes/base.html' %}
+{% load static %}
+{% block content %}
+<div class="parent_list_venues">
+    <h2>List Venues: </h2> 
+    <div class="child_list_venue">
+      {% for venue in venues%}
+          <div class="child7">
+            <tr class="venue-row7">
+                <td>
+                    <a class="venue-link7" href="{% url 'club:show-venue' venue.id %}">{{ venue }}</a>
+                  
+                    <div class="button7-container">
+                        <a href="{% url 'club:update-venue' venue.id %}" class="btn_btn7-outline-secondary">Update</a>
+                        <a href="{% url 'club:delete-venue' venue.id %}" class="btn_btn7-outline-secondary">delete</a>
+                    </div>
+                </td>
+            </tr>
+          </div> 
+      {% endfor %}  
+    </div>
+</div>
+
+
+<!--{{ venues }}<br/>
+Has Previous: {{ venues.has_previous }}<br/>
+Has Next: {{ venues.has_next }}<br/>
+Current Page: {{ venues.number }}<br/>
+Number of Pages: {{ venues.paginator.num_pages }}
+<hr><br/><br/>-->
+
+
+
+
+
+
+<div class="pagination">
+    {% if venues.has_previous %}
+    <a href="?page=1">&laquo; First</a>
+    <a href="?page={{ venues.previous_page_number }}">Previous</a>
+    {% endif %}
+  
+    <span class="current-page">Page {{ venues.number }} of {{ venues.paginator.num_pages }}</span>
+  
+    {% if venues.has_next %}
+    <a href="?page={{ venues.next_page_number }}">Next</a>
+    <a href="?page={{ venues.paginator.num_pages }}">Last &raquo;</a>
+    {% endif %}
+  </div>
+{% endblock content %}

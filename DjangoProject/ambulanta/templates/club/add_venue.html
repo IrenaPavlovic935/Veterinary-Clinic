@@ -1,0 +1,53 @@
+{% extends 'includes/base.html' %}
+
+{% block content %}
+
+        <div class="parent_event2">
+            <div class="okvir2">
+                <div class="picture_event2">
+                    <img src="https://media.istockphoto.com/id/1162593054/photo/young-dogs-and-cats-above-grey-banner.jpg?s=170667a&w=0&k=20&c=LCsuXt-deXjR0hCDHAeHMRtZX6y1bUQ6VTxOcSbr8qg=" alt="Image 3" width="100%">
+                    <div class="text_action2">
+                        <h1><strong>Join Together for Animal Protection - Add Your Venue to the Action!</strong></h1>
+                    </div>
+                </div>
+                <div class="form_event2">
+                    <br>
+                    {% if submitted %}
+                        <div class="alert alert-success">
+                            Your Venue Was Submitted Successfully!
+                        </div>
+                    {% else %}
+                        <form action="{% url 'post:add-venue' %}" method="POST" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <div class="gornji2">
+                                <div class="form-group">
+                                    <label for="{{ form.name.id_for_label }}"><h4>Venue Name:</h4></label>
+                                    {{ form.name }}
+                                </div>
+                                <div class="form-group">
+                                    <label for="{{ form.address.id_for_label }}"><h4>Address:</h4></label>
+                                    {{ form.address }}
+                                </div>
+                            </div>
+                            <div class="srednji2">
+                                <div class="form-group">
+                                    <label for="{{ form.phone.id_for_label }}"><h4>Contact Phone:</h4></label>
+                                    {{ form.phone }}
+                                </div>
+                                <div class="form-group">
+                                    <label for="{{ form.venue_image.id_for_label }}"><h4>Venue Image:</h4></label>
+                                    {{ form.venue_image }}
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <input type="submit" value="Submit" class="btn6 btn-success">
+                            </div>
+                        </form>
+                    {% endif %}
+                </div>
+                <br>
+            </div>
+        </div>
+{% endblock content %}
+
+

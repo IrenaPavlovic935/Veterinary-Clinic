@@ -1,0 +1,121 @@
+{% load static %}
+<div class="headerr">
+    <div class="navbarr">
+      <div class="navbar-toggle">
+        <i class="fa-solid fa-bars fa-xl" style="color: #ffffff;"></i>
+      </div>
+      <nav class="dropdownmenuu">
+        <div class="dropdownmenuu_img">
+          <img src="{% static 'images/logo.png.png' %}">
+        </div>
+        <ul>
+          <li><a href="{% url 'front:index' %}">Home</a></li>
+          <li class="dropdown-hover">
+            <a href="#" class="dropdown-hover-link">Blog<i class="fa-solid fa-caret-down" style="color: #ffffff;"></i></a>
+            <div class="dropdown-hover-content">
+              <ul>
+                <li><a href="{% url 'blog:all-blog' %}">View All Blogs<i class="fa-solid fa-paw"></i></a></li>
+                <li><a href="{% url 'blog:add-post' %}">Add New Post<i class="fa-solid fa-paw"></i></a></li>
+                
+              </ul>
+            </div>
+          </li>
+          <li class="dropdown-hover">
+            <a href="#" class="dropdown-hover-link">Appointment<i class="fa-solid fa-caret-down" style="color: #ffffff;"></i></a>
+            <div class="dropdown-hover-content">
+              <ul>
+                <li><a href="{% url 'appointment:appointment' %}" class="custom-link">Add Appointment<i class="fa-solid fa-paw"></i></a></li>
+                <li><a href="{% url 'appointment:appointment_list' %}" class="custom-link">Show Appointments<i class="fa-solid fa-paw"></i></a></li>
+              </ul>
+            </div>
+          </li>
+          <li><a href="{% url 'front:thankyou' %}">Contact</a></li>
+          
+          <!-- Dodani dio s profilima, prijavom i registracijom -->
+          {% if user.is_authenticated %}
+
+            <li class="dropdown-hover">
+              <a class="dropdown-hover-link" href="{% url 'users:logout' %}">Logout</a>
+            </li>
+            
+            {% if user.profile.id %}
+              <li class="dropdown-hover">
+                <a href="#" class="dropdown-hover-link">Profile<i class="fa-solid fa-caret-down" style="color: #ffffff;"></i></a>
+                <div class="dropdown-hover-content">
+                  <ul>
+                    <li><a href="{% url 'users:edit_profile' %}">Edit Setting<i class="fa-solid fa-paw" style="color: #ffffff;"></i></a></li>
+                    <li><a href="{% url 'users:show_profile_page' user.profile.id %}">Show Profile<i class="fa-solid fa-paw" style="color: #ffffff;"></i></a></li>
+                  </ul>
+                </div>
+              </li>
+            {% else %}
+              <li>
+                <a class="nav-link" href="{% url 'users:create_user_profile_page' %}">Create Profile</a>
+              </li>
+            {% endif %}
+          {% else %}
+            <li class="dropdown-hover">
+              <a class="dropdown-hover-link" href="{% url 'users:register' %}">Register</a>
+            </li>
+            <li class="dropdown-hover">
+              <a class="dropdown-hover-link" href="{% url 'users:login' %}">Login</a>
+            </li>
+          {% endif %}
+        </ul>
+      </nav>
+      
+    </div>
+    <div class="logoo">
+      <img src="{% static 'images/logo.png.png' %}">
+    </div>
+    <div class="search-mobile-form-container">
+      <form id="search-mobile-form" class="search-mobile-form" action="{% url 'dashboard:mobile-search' %}" method="POST">
+        {% csrf_token %}
+        <input type="search" id="search-mobile-input" name="searchedd" placeholder="Type your search..." class="hidden">
+        <button id="search-mobile-button" class="search-mobile-button" type="submit">
+          <span class="visually-hidden">Search</span>
+          <i class="fa-solid fa-magnifying-glass fa-lg" style="color: #fafcff;"></i>
+        </button>
+      </form>
+    </div>
+  
+</div>
+    
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const searchButton = document.getElementById("search-mobile-button");
+    const searchForm = document.getElementById("search-mobile-form");
+    const searchInput = document.getElementById("search-mobile-input");
+  
+    searchButton.addEventListener("click", function(event) {
+      event.preventDefault(); 
+      if (!searchForm.classList.contains("show-input")) {
+        console.log("Form is hidden");
+        searchForm.classList.add("show-input");
+        searchInput.focus();
+      } else {
+        console.log("Form is visible");
+        
+        if (searchInput.value.trim() !== "") {
+          console.log("Form submitted");
+          searchForm.submit();
+        } else {
+          console.log("Empty input field");
+          searchForm.classList.remove("show-input");
+        }
+      }
+    });
+  
+    const navbarToggle = document.querySelector(".navbar-toggle");
+    const dropdownMenu = document.querySelector(".dropdownmenuu");
+  
+    navbarToggle.addEventListener("click", function() {
+    dropdownMenu.classList.toggle("show");
+    });
+  });
+  
+</script>
+
+
+
+  

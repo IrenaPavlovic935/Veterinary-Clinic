@@ -1,0 +1,20 @@
+{% extends 'includes/base.html' %}
+{% block title %} Comment On Blog Post {% endblock %}
+{% load static %}
+{% block content %}
+
+    <div class="add_comment_div">
+        <img src="https://media.istockphoto.com/id/530011093/photo/computer-dog.jpg?s=612x612&w=0&k=20&c=rB6MNmBxllOJ3p7ppt_HaRtMHhacA7aekffrumuZSwY=" alt="">
+        <div class="form-group">
+            <form method="POST">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="{{ form.body.id_for_label }}"> Add Your Comment:</label>
+                    {{ form.body }}
+                </div>
+                <button>Add Comment<i class="fa-solid fa-paw fa-lg"></i></button>
+            </form>
+        </div>
+    </div>
+
+{% endblock content %}

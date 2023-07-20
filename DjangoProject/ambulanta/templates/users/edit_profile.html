@@ -1,0 +1,24 @@
+{% extends 'includes/base.html' %}
+{% load static %}
+{% block title %} Eidit Profile  {% endblock %}
+{% block content %}
+
+
+
+
+
+<div class="parent_form_group_edit">
+    <div class="form-group-edit">
+        <h1>Edit Profile </h1>
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button class="btn29_btn-secondary">Update Profile</button>
+        </form>
+    </div>
+</div>
+
+
+{% endblock content %}
+
+

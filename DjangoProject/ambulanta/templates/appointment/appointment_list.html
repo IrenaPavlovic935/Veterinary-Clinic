@@ -1,0 +1,83 @@
+{% extends 'includes/base.html' %}
+
+{% block content %}
+  <div class="list_appointment">
+    <div class="appointment_grid">
+      {% if message %}
+        {{ message }}
+      {% endif %}
+      {% if appointments %}
+        {% for appointment in appointments %}
+          <div class="appointment_card">
+            <h1>Your scheduled appointments</h1>
+            <p>Date and time: {{ appointment.appointment_datetime }}</p>
+            {% if appointment.patient %}
+              <p>Patient: {{ appointment.patient.patient_name }}</p>
+            {% else %}
+              <p>Patient: Nepoznato</p>
+            {% endif %}
+            <p>Animal species: {{ appointment.animal_species }}</p>
+            <p>Animal breed : {{ appointment.animal_breed }}</p>
+            <p>Appointment reason: {{ appointment.appointment_reason }}</p>
+            {% if appointment.patient %}
+              <p>Patient is already registered</p>
+            {% endif %}
+            <div class="appointment_button">
+              <a href="{% url 'appointment:update_appointment' appointment.id %}">
+                <i class="fa-solid fa-pen" style="color: #fafcff;"></i>
+                Reschedule appointment
+              </a>
+              <form method="post" action="{% url 'appointment:cancel_appointment' appointment.id %}">
+                {% csrf_token %}
+                <button type="submitttt" class="cancel-appointment-btn">
+                  <i class="fa-solid fa-trash" style="color: #edeff3;"></i>
+                  Cancel appointment
+
+                </button>
+              </form>
+            </div>
+            
+          </div>
+        {% endfor %}
+      {% else %}
+        {% if is_patient %}
+        <div class="is_patient_div">
+          <p>You don't have any scheduled appointments</p>
+        </div>
+        {% endif %}
+      {% endif %}
+    </div>
+    <div class="pagination">
+      {% if appointments.has_previous %}
+        <a href="?page={{ appointments.previous_page_number }}">Previous</a>
+      {% endif %}
+      <span class="current_page">{{ appointments.number }}</span>
+      {% if appointments.has_next %}
+        <a href="?page={{ appointments.next_page_number }}">Next</a>
+      {% endif %}
+    </div>
+    <div class="Appointment_Booking_Option">
+      <a href="{% url 'appointment:appointment' %}">Make an appointment</a>
+    </div>
+  </div>
+{% endblock content %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

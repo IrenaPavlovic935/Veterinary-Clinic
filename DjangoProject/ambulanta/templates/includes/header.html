@@ -1,0 +1,91 @@
+{% load static %}
+   <!--Start: Header-->
+    <div class="header">
+        <div class="logo">
+            <!-- <img src="{% static 'images/logoo.png' %}" width="200px" height="100px" > -->
+            <img src="{% static 'images/logoo.png' %}">
+        </div>
+
+        <div class="navbar">
+            <nav class="dropdownmenu">
+              <ul>
+                <li><a href="{% url 'front:index' %}">Home</a></li>
+                
+                <li><a href="{% url 'blog:all-blog' %}">Blog</a>
+                  <ul id="submenu">
+                    <li><a href="{% url 'blog:add-post' %}">Add Post</a></li>
+                  </ul>
+                </li>
+                <li><a href="{% url 'dashboard:gallery' %}">Pet Gallery</a>
+                  <ul id="submenu">
+                    <li><a href="{% url 'dashboard:add-image' %}">Add Image</a></li>
+
+                    <!--<li><a href="{% url 'club:add-venue' %}">Add Venue</a></li>
+                    <li><a href="{% url 'club:list-venues' %}">List Venues</a></li>
+                    <li><a href="{% url 'club:add-event' %}">Add Event</a></li>
+                    <li><a href="{% url 'club:venue-text' %}">Venue Text Filed</a></li>-->
+                    
+                  </ul>
+                </li>
+                   
+                    <li><a href="#">Appointment</a>
+                      <ul id="submenu">
+                        <li><a href="{% url 'appointment:appointment' %}">Add Appointment</a></li>
+                        <li><a href="{% url 'appointment:appointment_list' %}">Show Your Appointments</a></li>
+  
+                      </ul>
+                    </li>
+                    <li><a href="{% url 'front:thankyou' %}">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+        <form class="search-form" action="{% url 'dashboard:search-venues' %}" method="POST">
+          {% csrf_token %}
+          <input type="search" id="search-input" name="searched" placeholder="Type your search...">
+          <button class="search-button"type="submit">Search</button>
+        </form>
+            <!--<div class="phone">
+                <button class="phone">
+                    <!--<span class="material-symbols-outlined">app_registration</span>-->
+                    <!--<a href="{% url 'users:login' %}">SING IN</a>
+                  </button>
+            </div>-->
+           
+            {% if user.is_authenticated %}
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'users:logout' %}">Logout</a>
+              </li>
+              <!--<li class="nav-item">
+                <a class="nav-link" href="{% url 'users:edit_profile' %}">Profile</a>
+              </li>-->
+                {% if user.profile.id %}
+                  <div class="dropdown">
+                    <button class="dropbtn">Profile</button>
+                    <div class="dropdown-content">
+                      <a href="{% url 'users:edit_profile' %}">Edit Setting</a>
+                      <a href="{% url 'users:show_profile_page' user.profile.id %}">Show Profile</a>
+                    </div>
+                  </div>
+                
+                {% else %}
+                <div class="create_profile">
+                  <a href="{% url 'users:create_user_profile_page' %}">Create Profile</a>
+                </div>
+
+                {% endif %}
+            {% else %}
+              <li class="nav-item2">
+                <a class="nav-link" href="{% url 'users:register' %}">Register</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'users:login' %}">Login</a>
+              </li>
+            {% endif %}
+            
+        </div>
+
+        </div>
+    </div>
+</body>
+</html>
+    

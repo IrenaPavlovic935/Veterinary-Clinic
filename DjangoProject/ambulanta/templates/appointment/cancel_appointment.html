@@ -1,0 +1,12 @@
+{% extends 'includes/base.html' %}
+{% block content %}
+  <h1>Otkazivanje termina</h1>
+  <p>Da li ste sigurni da želite otkazati termin?</p>
+  <p>Pacijent: {{ appointment.patient.patient_name }}</p>
+  <p>Datum i vrijeme: {{ appointment.appointment_datetime }}</p>
+
+  <form method="post" action="{% url 'appointment:cancel_appointment' appointment.id %}">
+    {% csrf_token %}
+    <button type="submit">Potvrdi otkazivanje</button>
+  </form>
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends 'includes/base.html' %}
+{% block title %} Create a Profile Page {% endblock %}
+{% load static %}
+{% block content %}
+
+{% if user.is_authenticated %}
+    <div class="parent_div_create_profil">
+        <div class="crate_profile_div">
+            <h1> Create Profile Page </h1>
+            <div class="form-group">
+                <form method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    
+                    {% if form.birthday.errors %}
+                        <div class="alert alert-danger">
+                            {% for error in form.birthday.errors %}
+                                <p>{{ error }}</p>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                    
+                    {{ form.as_p }}
+                    <button>Create Profile</button>
+                </form>
+            </div>
+        </div>
+    </div>
+ 
+{% else %}
+    You're not allowed here!
+{% endif %}
+
+{% endblock content %}

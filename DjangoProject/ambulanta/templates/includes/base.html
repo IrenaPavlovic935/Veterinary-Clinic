@@ -1,0 +1,47 @@
+{% load static %}
+<!DOCTYPE html>
+ <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title%}PawsCare - Pet Care & Veterinary{% endblock %}</title>
+    <link rel="icon" href="{% static 'images/orange-paws.png' %}">
+    <!-- <link rel="stylesheet" href="static/css/novii.css"> -->
+   
+    <link rel="stylesheet" href="{% static 'css/novii.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+
+    
+</head>
+<html lang="en">
+<body>
+    {% include 'includes/header.html' %}
+    {% include 'includes/header_for_phone.html' %}
+    <div class="conteiner9">
+        {% if messages %}
+                {% for message in messages %}
+                    <div style="background-color: #f8d7da; color: #721c24; padding: 10px; margin-bottom: 10px;">
+                        {{ message }}
+                        <button type="button" style="color: inherit; background-color: transparent; border: none; float: right;" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                {% endfor %}
+        {% endif %}
+    </div>
+
+    {% block content %}
+
+    {% endblock content %}
+
+    <!--Start: Footer-->
+    {% include 'includes/footer.html' %}
+    <!--End: Footer-->
+
+    <!--Link for custom JS-->
+    <script src="{% static 'js/streams.js' %}"></script>
+
+</body>
+</html>
+  

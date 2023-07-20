@@ -1,0 +1,63 @@
+{% extends 'includes/base.html' %}
+
+{% block content %}
+<div class="parent_div_appointment">
+  <div class="img_div">
+    <img src="https://www.eastspringfieldveterinaryhospital.com/wp-content/uploads/2019/03/Hersman-Family-Vet-Slide.jpg" alt="">
+  </div>
+    <div class="form_appointment">
+      <h1>Ažuriranje termina</h1>
+      {% if message %}
+        {% if message == 'Appointment successfully scheduled!' %}
+            <strong><p class="message success-message"><i class="fa-regular fa-circle-check" style="color: #fafafa;"></i>{{ message }}</p></strong>
+        {% else %}
+            <strong><p class="message"><i class="fa-solid fa-triangle-exclamation" style="color: #fafafa;"></i>{{ message }}</p></strong>
+        {% endif %}
+      {% endif %}
+      <form method="post" action="{% url 'appointment:update_appointment' appointment.id %}">
+        {% csrf_token %}
+        <div class="form-row">
+          <div class="form-column">
+            <label for="patient_name">Patient Name:</label><br/>
+            <input type="textt" name="patient_name" id="patient_name" value="{{ appointment.patient.patient_name }}" required class="larger-input">
+          </div>
+          <div class="form-column">
+            <label for="animal_species">Animal Species:</label><br/>
+            <input type="textt" name="animal_species" id="animal_species" value="{{ appointment.animal_species }}" required class="larger-input">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-column">
+            <label for="animal_breed">Animal Breed:</label><br/>
+            <input type="textt" name="animal_breed" id="animal_breed" value="{{ appointment.animal_breed }}" required class="larger-input">
+          </div>
+          <div class="form-column">
+            <label for="animal_age">Animal Age:</label><br/>
+            <input type="textt" name="animal_age" id="animal_age" value="{{ appointment.animal_age }}" required class="larger-input">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-column">
+            <label for="appointment_time">Time:</label><br/>
+            <input type="time" name="appointment_time" id="appointment_time" value="{{ appointment.appointment_datetime|time:'H:i' }}" required class="larger-input">
+          </div>
+          <div class="form-column">
+            <label for="appointment_date">Date:</label><br/>
+            <input type="date" name="appointment_date" id="appointment_date" value="{{ appointment.appointment_datetime|date:'Y-m-d' }}" required class="larger-input">
+          </div>
+        </div>
+        <div class="form-column">
+          <label for="appointment_reason">Appointment Reason:</label><br/>
+          <input type="textt" name="appointment_reason" id="appointment_reason" value="{{ appointment.appointment_reason }}" required class="largerr-input">
+        </div>
+        <div class="form-column">
+          <label for="email">Email:</label><br/>
+          <input type="email" name="email" id="email" value="{{ appointment.email }}" required class="larger-input">
+        </div>
+        <button type="submit" class="custom-button">
+          <i class="fa-solid fa-stethoscope"></i> Update Appointemnt
+        </button>
+      </form>
+    </div>
+  </div>
+{% endblock %}

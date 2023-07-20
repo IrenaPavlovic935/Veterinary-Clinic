@@ -1,0 +1,28 @@
+{% extends 'includes/base.html' %}
+{% load static %}
+{% block content%}
+<div class="messageee">
+    <h1>All Sent Messages</h1>
+    {% if messages %}
+        <ul>
+        {% for message in messages %}
+            <li>
+            <strong>Recipient:</strong> {{ message.recipient.username }}<br>
+            <strong>Content:</strong> {{ message.content }}<br>
+            <strong>Timestamp:</strong> {{ message.timestamp }}
+            </li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>No messages found.</p>
+    {% endif %}
+</div>
+<style>
+    .conteiner9{
+      display: none;
+    }
+</style>
+
+
+{% endblock %}
+

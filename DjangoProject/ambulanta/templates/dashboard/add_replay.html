@@ -1,0 +1,6 @@
+<form method="POST" action="{% url 'dashboard:add_reply' comment_id=comment.id %}">
+    {% csrf_token %}
+    <input type="text" name="body" placeholder="Odgovori na komentar">
+    <button type="submit" class="btn btn-primary">Odgovori</button>
+  </form>
+  

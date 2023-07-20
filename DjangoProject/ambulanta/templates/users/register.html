@@ -1,0 +1,83 @@
+{% extends 'includes/base.html' %}
+{% load static %}
+
+{% block content %}
+  {% if form.errors %}
+    <div class="message-register" style="background-color: #f8d7da; color: #721c24; padding: 10px; margin-bottom: 10px;">
+      <p>There was an error with your form</p>
+       
+    </div>
+  {% endif %}
+        <div class="form_register_parent">
+            <h1>Register</h1>
+            <form action="{% url 'users:register' %}" method="POST">
+                {% csrf_token %}
+
+                <div class="form-group">
+                    <div class="user_text">
+                        <label for="id_username">Username:</label>
+                    </div>
+                    <div class="user_form_icons">
+                        <i class="fa-solid fa-user" style="color: #ffffff;"></i>
+                        <input type="text" name="username" id="id_username" maxlength="150" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="user_text">
+                        <label for="id_first_name">First name:</label>
+                    </div>
+                    <div class="user_form_icons">
+                        <i class="fa-solid fa-user" style="color: #ffffff;"></i>
+                        <input type="text" name="first_name" id="id_first_name" maxlength="50" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="user_text">
+                        <label for="id_last_name">Last name:</label>
+                    </div>
+                    <div class="user_form_icons">
+                        <i class="fa-solid fa-user" style="color: #ffffff;"></i>
+                        <input type="text" name="last_name" id="id_last_name" maxlength="50" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="user_text">
+                        <label for="id_email">Email:</label>
+                    </div>
+                    <div class="user_form_icons">
+                        <i class="fa-regular fa-envelope" style="color: #ffffff;"></i>
+                    
+                        <input type="email" name="email" id="id_email" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="user_text">
+                        <label for="id_password1">Password:</label>
+                    </div>
+                    <div class="user_form_icons">
+                        <i class="fa-solid fa-key" style="color: #ffffff;"></i>
+                        <input type="password" name="password1" id="id_password1" required>
+                    </div>
+                    
+                </div>
+
+                <div class="form-group">
+                    <div class="user_text">
+                        <label for="id_password2">Password confirmation:</label>
+                    </div>
+                    <div class="user_form_icons">
+                        <i class="fa-solid fa-key" style="color: #ffffff;"></i>
+                        <input type="password" name="password2" id="id_password2" required>
+                    </div>
+                
+                </div>
+
+                <button type="submitt" class="btn25_btn-primary">Register</button>
+                <a href="{% url 'users:login'  %}" class="Register-linkk">Login</a>
+            </form>
+        </div>
+{% endblock content %}
+

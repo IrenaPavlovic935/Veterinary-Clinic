@@ -1,0 +1,63 @@
+{% extends 'includes/base.html' %}
+{% load static %}
+
+{% block content %}
+
+        <div class="parent_event1">
+            <div class="okvir1">
+                <div class="picture_event1">
+                    <img src="https://www.acasadoanimal.com.br/wp-content/uploads/2018/10/pet.png" alt="Image 3" width="100%">
+                    <div class="text_action1">
+                        <h1><strong>IT'S TIME TO ACTION</strong></h1>
+                    </div>
+                </div>
+                <div class="form_event1">
+                    <br/>
+                    {% if submitted %}
+                        Your Event Was Submitted Succesfully!
+                    {% else %}
+                        <form action="" method="POST" placeholder="" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <div class="gornji">
+                                
+                                <div class="form-group">
+                                    <label for="{{ form.name.id_for_label }}"><h4>Event Name:</h4></label>
+                                    {{ form.name }}
+                                </div>
+                                <div class="form-group">
+                                    <label for="{{ form.event_date.id_for_label }}"><h4>Event Date:</h4></label>
+                                    {{ form.event_date }}
+                                </div>
+                            </div>
+                            <div class="srednji">
+                                <div class="form-group">
+                                    <label for="{{ form.venue.id_for_label }} "><h4>Event Venue:</h4></label>
+                                    {{ form.venue }}
+                                </div>
+                                <div class="form-group">
+                                    <label for="{{ form.menager.id_for_label }}"><h4>Menager:</h4></label>
+                                    {{ form.menager }}
+                                </div>
+                            </div>
+                            <div class="zadnji">
+                                <div class="form-group">
+                                    <label for="{{ form.description.id_for_label }}"><h4>Description:</h4></label>
+                                    {{ form.description }}
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="{{ form.event_image.id_for_label }}"><h4>Image:</h4></label>
+                                {{ form.event_image }}
+                            </div>
+                            <div class="dugme">
+                                <input type="submit" value="Submit" class="btn5 btn-success">
+                            </div>
+                        </form>
+                    {% endif %}
+                </div>
+                <br/>
+            </div>
+        </div>
+</div>
+
+{% endblock content %}

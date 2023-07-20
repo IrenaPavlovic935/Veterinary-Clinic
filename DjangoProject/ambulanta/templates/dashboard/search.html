@@ -1,0 +1,46 @@
+{% extends 'includes/base.html' %}
+{% load static %}
+{% block content %}
+
+<center>
+    {% if searched %}
+        <div class="parent_div_search">
+            <div class="picture_search">
+                <img src="https://thumbs.dreamstime.com/b/cat-sign-cute-cartoon-holding-blank-you-to-add-your-own-wording-91657732.jpg" alt="">
+            </div>
+            <div class="search_div">
+                <h1>You Searched For {{searched}}</h1>       
+                <!-- Prikaz rezultata pretrage za lokacije -->
+                {% for venue in venues %}
+                    <a href="{% url 'club:show-venue' venue.id %}">{{ venue }}</a> <br/>
+                {% endfor %}
+                
+                
+                <!-- Prikaz rezultata pretrage za blogove -->
+                {% for post in posts %}
+                    <a href="{% url 'blog:article-detail' post.id %}">{{ post.title }}</a> <br/>
+                {% endfor %}
+                
+                {% for profile in profiles %}
+                    <a href="{% url 'users:show_profile_page' profile.id %}">{{ profile.user.username }}</a>
+
+                {% endfor %}
+            </div>
+    {% else %}
+        <div class="parent_none">
+            <div class="none">
+                <h1> Please enter text in the search form.</h1>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+</center>
+<br/>
+
+{% endblock content %}
+
+
+
+
+
+

@@ -1,0 +1,146 @@
+{% extends 'includes/base.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="parent_div_detail_gallery">
+        <div class="user_profile_picture">
+            <div class="infromations">
+                <div class="user_gallery">
+                    <img src="{{ image.user.profile.profile_pic.url }}" alt="Profilna slika korisnika">
+                </div>
+                <p>{{ image.user.username }}</p>
+            </div>
+            <div class="image-containerr">
+                <img src="{{ image.image.url }}" alt="Opis slike">
+            </div>
+
+            <div class="like-container">
+                <form action="{% url 'dashboard:detail_image' image_id=image.id %}" method="POST">
+                    {% csrf_token %}
+                    {% if is_liked %}
+                        <button type="submit" class="btn9_btn-primary">
+                            <i class="fa-solid fa-thumbs-down" style="color: #ffffff;"></i>
+                            Unlike
+                        </button>
+                    {% else %}
+                        <button type="submit" class="btn9_btn-primary">
+                            <i class="fa-solid fa-thumbs-up" style="color: #ffffff;"></i>
+                            Like
+                        </button>
+                    {% endif %}
+                </form>
+                <p><strong>{{ image.likes.count }} Likes</strong></p>
+                <form method="POST" action="{% url 'dashboard:add_comment' image_id=image.id %}">
+                    {% csrf_token %}
+                    <button type="submit" class="btn15_btn-primary">
+                        <i class="fa-regular fa-comment" style="color: #f8f9fc;"></i>
+                        Comment
+                    </button>
+                </form>
+                <p><strong> {{total_comments_and_replies}} Comments</strong></p>
+            </div>
+        </div>
+    </div>
+    {% for comment in comments %}
+        <div class="comment">
+            <div class="image_and_name">
+                {% if comment.user.profile.profile_pic %}
+                    <img src="{{ comment.user.profile.profile_pic.url }}" alt="Profilna slika">
+                {% else %}
+                    <img src="{% static 'images/user.jpg' %}" alt="Default slika">
+                {% endif %}
+                <p>{{ comment.name }}</p>
+            </div>
+            <p>{{ comment.body }}</p>
+            <p>{{ comment.date_added }}</p>
+
+            <div class="likes_gallery_button_and_number">
+                <form action="{% url 'dashboard:like_comment' comment_id=comment.id %}" method="POST">
+                    {% csrf_token %}
+                    <button type="submit" class="like-button">
+                        {% if request.user in comment.likes.all %}
+                            <i class="fa-solid fa-thumbs-down" style="color: #ffffff;"></i> Unlike
+                        {% else %}
+                            <i class="fa-solid fa-thumbs-up" style="color: #ffffff;"></i> Like
+                        {% endif %}
+                    </button>
+                </form>
+                <p>{{ comment.likes.count }} Likes</p>
+                {% if user.is_superuser or comment.user == request.user %}
+                <form method="POST" action="{% url 'dashboard:delete_comment' comment_id=comment.id %}">
+                    {% csrf_token %}
+                    <button type="submitT" class="delete-button"><i class="fa-solid fa-trash" style="color: #ffffff;"></i>Delete</button>
+                </form>
+            {% endif %}
+            </div>
+            
+
+            <div class="reply_forms">
+                <form method="POST" action="{% url 'dashboard:add_reply' comment_id=comment.id %}">
+                    {% csrf_token %}
+                    <input type="hidden" name="parent_comment_id" value="{{ comment.id }}">
+                    <input type="text" name="body" placeholder="Reply to comment">
+                    <button type="submitT" class="btn22_btn-primary">Reply</button>
+                </form>
+            </div>
+            {% if user.is_superuser or reply.user == request.user %}
+                <form method="POST" action="{% url 'dashboard:delete_comment' comment_id=comment.id %}">
+                    {% csrf_token %}
+                    <button type="submitT" class="delete-button"><i class="fa-solid fa-trash" style="color: #ffffff;"></i>Delete</button>
+                </form>
+            {% endif %}
+
+            {% for reply in comment.replies.all %}
+                <div class="reply">
+                    <div class="image_and_name">
+                        {% if reply.user.profile.profile_pic %}
+                            <img src="{{ reply.user.profile.profile_pic.url }}" alt="Profilna slika">
+                        {% else %}
+                            <img src="{% static 'images/user.jpg' %}" alt="Default slika">
+                        {% endif %}
+                        <p>{{ reply.user.username }}</p>
+                    </div>
+                    <p>{{ reply.body }}</p>
+                    <p>{{ reply.date_added }}</p>
+                    {% if reply.parent_reply %}
+                        <p>Odgovor na: {{ reply.parent_reply.user.username }} - {{ reply.parent_reply.body|truncatewords:5 }}</p>
+                    {% endif %}
+                    
+                    <div class="likes_gallery_button_and_number">
+                        <form action="{% url 'dashboard:like_reply' reply_id=reply.id %}" method="POST">
+                            {% csrf_token %}
+                            <button type="submit" class="like-button">
+                                {% if request.user in reply.likes.all %}
+                                    <i class="fa-solid fa-thumbs-down" style="color: #ffffff;"></i> Unlike
+                                {% else %}
+                                    <i class="fa-solid fa-thumbs-up" style="color: #ffffff;"></i> Like
+                                {% endif %}
+                            </button>
+                        </form>
+                        <p>{{ reply.likes.count }} Likes</p>
+                    </div>
+                    
+
+                    <div class="reply_forms">
+                        <form method="POST" action="{% url 'dashboard:add_reply' comment_id=comment.id %}">
+                            {% csrf_token %}
+                            <input type="hidden" name="parent_reply_id" value="{{ reply.id }}">
+                            <input type="text" name="body" placeholder="Reply to reply">
+                            <button type="submitT" class="btn22_btn-primary">Reply</button>
+                        </form>
+                    </div>
+                    {% if  user.is_superuser or request.user == reply.user %}
+                        <form method="POST" action="{% url 'dashboard:delete_reply' reply_id=reply.id %}">
+                            {% csrf_token %}
+                            <button type="submitT" class="delete-button">
+                                <i class="fa-solid fa-trash" style="color: #ffffff;"></i>
+                                Delete</button>
+                        </form>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
+    {% endfor %}
+{% endblock %}
+
+

@@ -1,0 +1,120 @@
+{% extends 'includes/base.html' %}
+{% load static %}
+{% block content %}
+
+    <div class="artice_details_pic">
+        {% if post.header_image %}
+            <img src="{{ post.header_image.url }}">
+        {% else %}
+            <img src="{% static 'images/cuteeee.jpg' %}">
+        {% endif %}
+
+        
+    </div>
+    <div class="aricle_details_date">
+        <strong>{{ post.post_date }}</strong>
+    </div>
+    <div class="article_details_title">
+        <h1><strong>{{ post.title }}</strong></h1>
+    </div>
+    <div class="article_details_author">
+    {% if post.author.profile.profile_pic %}
+        <img src="{{ post.author.profile.profile_pic.url }}" width="60" height="60">
+    {% else %}
+        <img src="{% static 'images/user.jpg' %}" width="100" height="100">
+    {% endif %}
+    <div class="name_email">
+        <h3> {{post.author}}</h3>
+        <p>{{ post.author.email }}</p>
+    </div>  
+    <div class="like_details">
+        <form action="{% url 'blog:like_post' post.pk %}"
+        method="POST" style="display: flex;">
+            {% csrf_token %}
+        {% if user.is_authenticated %}
+            {% if liked %}
+                <button type="submitt", name="post_id", value="{{ post.id }}", class="btn-btn-primaryy">
+                    <i class="fa-regular fa-thumbs-up fa-xl"></i></button> 
+            {% else %}
+                <button type="submitt", name="post_id", value="{{ post.id }}", class="btn-btn-primaryy">
+                    <i class="fa-regular fa-thumbs-up fa-xl"></i></button>
+            {% endif %}
+        {% else %}  
+        {% endif %}
+        <h3> {{ total_likes }} Likes</h3><br/>
+        <div class="like_comment_statistic">
+            <h3><i class="fa-regular fa-comment"></i> <p> {{ comments_count }}  Comments</p></h3>
+        </div>
+            
+        </div>
+    </form>
+    </div>  
+    </div>
+    <div class="body_details">
+        {{ post.body }} 
+    </div>
+   
+    <br/><br/><br/>
+    <div class="bottom_article_details">
+        <div class="article_details_authorr">
+            {% if post.author.profile.profile_pic %}
+                <img src="{{ post.author.profile.profile_pic.url }}" width="60" height="60">
+            {% else %}
+                <img src="{% static 'images/user.jpg' %}" width="100" height="100">
+            {% endif %}
+        </div>
+        <h3> About {{post.author}}</h3>
+        <p>{{ post.author.profile.biography}}</p>
+        <div class="social_iconss">
+            <a href="{{ post.author.profile.instagram_url }}"><i class="fa-brands fa-instagram fa-lg" style="color: #5a4c48;"></i></a>
+            <i class="fa-brands fa-facebook fa-lg" style="color: #5a4c48;"></i>
+            <i class="fa-brands fa-twitter fa-lg" style="color: #5a4c48;"></i>
+            <i class="fa-brands fa-tiktok fa-lg" style="color: #5a4c48;"></i>
+        </div>
+    </div>
+   
+
+    <div class="comments">
+        <h1>Comments...</h1>
+            {% for comment in post.comments.all %}
+            <div class="comment_details">
+                <div class="comment_pic">
+                    {% if comment.user.profile.profile_pic %}
+                        <img src="{{ comment.user.profile.profile_pic.url }}" width="80" height="80">
+                    {% else %}
+                        <img src="{% static 'images/user.jpg' %}" width="80" height="80">
+                    {% endif %}
+                </div>
+                <div class="comment_data">
+                    <h3>{{ comment.user }}</h3>
+                    <h5>{{ comment.date_added }}</h5>
+                    <p>{{ comment.body }}</p>
+                </div>
+            </div>
+            {% endfor %}
+        <div class="add_comet">
+            {% if not post.comments.all %}
+            Still no comments<a href="{% url 'blog:add-comment' pk=post.pk %}"><br/>
+                Add your comment<i class="fa-solid fa-paw fa-lg"></i></a>
+            {% else %}
+                <strong><a href="{% url 'blog:add-comment' pk=post.pk %}">Add your comment <i class="fa-solid fa-paw fa-lg"></i></a><br/></strong>
+            {% endif %}
+        </div>
+    </div>
+    <div class="button_article_details">
+        <a href="{% url 'blog:all-blog' %}">Back <i class="fa-solid fa-backward"></i></a>
+        {% if post.author.profile %}
+            <a href="{% url 'users:show_profile_page' post.author.profile.id %}">Show user profile<i class="fa-solid fa-eye"></i></a>
+        {% endif %}
+        {% if user.is_authenticated and user == post.author %}
+            {% if not post.author.profile %}
+                <a href="{% url 'users:create_user_profile_page' %}">Create user profile<i class="fa-solid fa-user-plus"></i></a>
+            {% endif %}
+            <a href="{% url 'blog:update-post' post.pk %}">Edit Post<i class="fa-solid fa-pen"></i></a>
+            <a href="{% url 'blog:delete-post' post.pk %}">Delete Post<i class="fa-solid fa-trash"></i></a>
+        {% endif %}
+    </div>
+    
+    
+
+{% endblock content %}

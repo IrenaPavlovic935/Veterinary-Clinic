@@ -1,0 +1,17 @@
+{% extends 'includes/base.html' %}
+
+{% block content %}
+<div class="parent_delete_account">
+  <div class="delete_account">
+    <h1>Confirm Delete </h1>
+    <p>Are you sure you want to delete your profile?</p>
+    <form method="post">
+      {% csrf_token %}
+      <div class="button_cancle_delete_account">
+        <button type="submit" class="btn btn-danger">Delete</button>
+        <a href="{% url 'users:show_profile_page' user.profile.id %}">Cancel</a>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

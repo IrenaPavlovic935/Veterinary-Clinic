@@ -1,0 +1,33 @@
+{% extends 'includes/base.html' %}
+{% block title %} Create a New Blog {% endblock %}
+{% load static %}
+{% block content %}
+
+
+{% if user.is_authenticated %}
+<div class="parent_add_blog_div">
+    <div class="add_blog_div">
+        <img src="https://static.vecteezy.com/system/resources/thumbnails/009/085/232/small/cartoon-dogs-with-big-bone-vector.jpg" alt="">
+        <h1>Add Your Post </h1>
+        
+            <div class="form-groupp">
+                <form method="POST" enctype="multipart/form-data">
+                    {% csrf_token  %}
+                    {{ form.as_p }}
+                    <button>
+                        <i class="fa-solid fa-paw" style="color: #fcfcfc;"></i>
+                        Post
+                    </button>
+            </div>
+    </div>
+    <script>
+        var userId = "{{ user.id }}";
+        document.querySelector("[name='author']").value = userId;
+
+    </script>
+</div>
+{% else %}
+    You're not allowed here!
+{% endif %}
+
+{% endblock content %}

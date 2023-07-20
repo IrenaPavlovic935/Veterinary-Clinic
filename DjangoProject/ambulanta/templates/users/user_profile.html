@@ -1,0 +1,241 @@
+{% extends 'includes/base.html' %}
+
+{% load static %}
+
+{% block content %}
+  <div class="parent_profile_div">
+    <div class="profile" id="profile-menu">
+      <div class="navbar_profile">
+        <div class="beginning_part">
+          <div class="profile-pic2">
+            {% if profile_picture %}
+              <img src="{{ profile_picture.url }}" >
+            {% else %}
+              <img src="{% static 'images/user.jpg' %}" >
+            {% endif %}
+          </div>         
+          <div class="title_user">
+            <h1>{{ page_user }}</h1>
+          </div>
+        </div>
+        <nav>
+          <ul>
+            <li><i class="fa-regular fa-user" ></i><a href="#">Profile</a></li>
+            <li><i class="fa-solid fa-list" ></i><a href="{% url 'blog:post_list' %}">List Blog</a></li>
+            {% if user.is_authenticated %}
+              {% if user.profile.id == profile.id %}
+                <li><i class="fa-sharp fa-solid fa-pen-to-square"></i><a href="{% url 'users:edit_profile_page' user.profile.id %}">Update Account</a></li>
+                <li><i class="fa-solid fa-plus" ></i><a href="{% url 'dashboard:add-image' %}"> Add Image</a></li>
+                <li><i class="fa-solid fa-calendar-check"></i><a href="{% url 'appointment:appointment_list' %}">Appointment</a></li>
+                <li><i class="fa-solid fa-message" style="color: #000000;"></i><a href="{% url 'front:all_sent_messages' %}">Message</a></li>
+              {% endif %}
+            {% endif %}
+            <li><i class="fa-solid fa-right-from-bracket"></i><a href="{% url 'users:logout' %}">Logout</a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+    
+    <div class="drugideo">
+      {% if posts %}
+        {% for post in posts %}
+          <div class="postt">
+            {% if post.header_image %}
+            <img src="{{ post.header_image.url }}">
+            {% endif %}
+            <div class="glavni_deo_user">
+              <div class="article-box">
+                <h2>{{ post.title }}</h2>
+                <p>Likes: {{ post.likes.count }}</p>
+                <p>{{ post.post_date }}</p>
+              </div>
+              <div class="comand">
+                <a href="{% url 'blog:article-detail' post.pk %}" >Learn More</a><i class="fa-solid fa-paw" style="color: #f9fafa;"></i>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      {% else %}
+        {% if user.profile.id == profile.id %}
+          <h6>You haven't published any blogs yet</h6>
+        {% else %}
+         <h6> This User haven't published any blogs yet</h6>
+        {% endif %}
+        <a href="{% url 'blog:add-post'%}"> Add Blog</a>
+      {% endif %}  
+
+      <div class="pagination">
+          <span class="step-links">
+            {% if posts.has_previous %}
+                <a href="?page=1">&laquo; first</a>
+                <a href="?page={{ posts.previous_page_number }}">previous</a>
+            {% endif %}
+    
+            <span class="current-page">
+                Page {{ posts.number }} of {{ posts.paginator.num_pages }}.
+            </span>
+    
+            {% if posts.has_next %}
+                <a href="?page={{ posts.next_page_number }}">next</a>
+                <a href="?page={{ posts.paginator.num_pages }}">last &raquo;</a>
+            {% endif %}
+          </span>
+    </div>
+    </div>
+    <div class="srednji_deo">
+      <div class="profile-containerr">
+        <div class="profile-info">
+          <div class="profile_image_icons">
+            <div class="profile-pic1">
+              {% if profile_picture %}
+                <img src="{{ profile_picture.url }}" >
+              {% else %}
+                <img src="{% static 'images/user.jpg' %}" >
+              {% endif %}
+            </div>  
+            <div class="social_icons">
+              <a href="{{ post.author.profile.instagram_url }}"><i class="fa-brands fa-instagram" style="color: white;"></i></a>
+              <i class="fa-brands fa-facebook" style="color: white;"></i>
+              <i class="fa-brands fa-twitter" style="color: white;"></i>
+              <i class="fa-brands fa-tiktok" style="color: white;"></i>
+            </div>
+          </div>
+          <div class="profile-details">
+            <h2>{{ page_user }}</h2>
+            <div class="profile-line">
+              <span>Phone</span>
+              <span class="profile-number">{{ profile.phone }}</span>
+            </div>
+            <div class="profile-line">
+              <span>Email</span>
+              <span class="profile-number">{{ profile.email }}</span>
+            </div>
+            <div class="profile-line">
+              <span>Birthday</span>
+              <span class="profile-number">{{profile.birthday }}</span>
+            </div>
+          </div>
+          {% if user.is_authenticated %}
+              {% if user.is_superuser or user.profile.id == profile.id %}
+                  <div class="profile-actions">
+                      <a class="button_danger" href="{% url 'users:delete_profile' %}">Delete Account</a>
+                      <a class="button_update" href="{% url 'users:edit_profile_page' user.profile.id %}">Update Account</a>
+                  </div>
+              {% endif %}
+          {% endif %}
+
+        </div>
+      </div>
+    </div>
+    <div class="srednji_deoo">
+      <div class="profile-containerr">
+        <div class="profile-info">
+          <div class="down_icons">
+            <i  <i class="fa-solid fa-bars fa-lg" style="color: #ffffff;"style="color: #ffffff;" onclick="toggleProfileMenu()"></i>
+          </div>
+          <div class="profile_image_icons">
+            <div class="profile-pic1">
+              {% if profile_picture %}
+                <img src="{{ profile_picture.url }}" >
+              {% else %}
+                <img src="{% static 'images/user.jpg' %}" >
+              {% endif %}
+            </div>  
+            <div class="social_icons">
+              <a href="{{ post.author.profile.instagram_url }}"><i class="fa-brands fa-instagram" style="color: white;"></i></a>
+              <i class="fa-brands fa-facebook" style="color: white;"></i>
+              <i class="fa-brands fa-twitter" style="color: white;"></i>
+              <i class="fa-brands fa-tiktok" style="color: white;"></i>
+            </div>
+          </div>
+          <div class="profile-details">
+            <h2>{{ page_user }}</h2>
+            <div class="profile-line">
+              <span>Phone</span>
+              <span class="profile-number">{{ post.author.profile.phone }}</span>
+            </div>
+            <div class="profile-line">
+              <span>Email</span>
+              <span class="profile-number">{{ post.author.profile.email }}</span>
+            </div>
+            <div class="profile-line">
+              <span>Birthday</span>
+              <span class="profile-number">{{ post.author.profile.birthday }}</span>
+            </div>
+          </div>
+          {% if user.is_authenticated %}
+            {% if user.is_superuser or user.profile.id == profile.id %}
+              <div class="profile-actions">
+                <a class="button_danger" href="{% url 'users:delete_profile' %}">Delete Account</a>
+                <a class="button_update" href="{% url 'users:edit_profile_page' user.profile.id %}">Update Account</a>
+              </div>
+            {% endif %}
+          {% endif %}
+        </div>
+      </div>
+    </div>
+    
+    <div class="footer_user_profile">
+        <div class="statistic">
+          <div class="numbers_blog">
+            <h2> {{ profile.user.post_set.count }}</h2>
+            <h>Number of blogs</h> 
+          </div>
+          <div class="numbers_blog_pic">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSBzvbyw6Jy6etlHx-xzniiY9pfRTBclErHHMT3ilLxAyBSb7iGgCzqKLE03ZlPGBcCByI&usqp=CAU" alt="" width="70px" height="70px" border-radius="50%">
+          </div>
+        </div>
+        <div class="statistic">
+          <div class="total_likes">
+            <h2>{{ total_likes }}</h2>
+            <h>Total Likes</h>
+          </div>
+          <div class="numbers_blog_pic">
+            <img src="https://as2.ftcdn.net/v2/jpg/02/08/67/43/1000_F_208674391_7PROvNg5Z3LoRVFfoXFJytb4UzePBGV8.jpg" alt="" width="70px" height="70px">
+          </div>
+        </div>
+        <div class="statistic">
+          <div class="total_comments">
+            <h2> {{ total_comments }} </h2>
+            <h>Total Comments</h>
+          </div>
+          <div class="numbers_blog_pic">
+            <img src="https://i.pinimg.com/originals/eb/3a/eb/eb3aeb5ccbf2fe32d25f496221518bd7.png" alt="" width="70px" height="70px">
+          </div>
+        </div>
+        <div class="cute_picture">
+          <h4> Welcome<br/> {{ page_user }} </h4>
+          <img src="https://media.istockphoto.com/id/496235876/vector/cute-cat-and-dog-holding-blank-sign.jpg?s=612x612&w=0&k=20&c=RrcLxfs3jRnwrDzQgDZjf0wIqu9Cfp2bWIUU1uvfhMA=" alt="" width="70px" height="70px">
+        </div>
+    </div>
+  </div>
+
+
+  <script>
+    function toggleProfileMenu() {
+      var profileMenu = document.getElementById("profile-menu");
+      if (profileMenu.style.display === "none") {
+        profileMenu.style.display = "block";
+      } else {
+        profileMenu.style.display = "none";
+      }
+    }
+    
+  </script>
+  {% if user.profile.id != profile.id %}
+    <style>
+        .profile {
+            display: none;
+        }
+        .drugideo{
+          margin-left: 150px;
+        }
+        .down_icons{
+          display: none;
+        }
+        
+    </style>
+{% endif %}
+
+
+{% endblock %}

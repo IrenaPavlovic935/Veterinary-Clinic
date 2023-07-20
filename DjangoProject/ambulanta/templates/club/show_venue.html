@@ -1,0 +1,32 @@
+{% extends 'includes/base.html' %}
+{% load static %}
+{% block content %}
+
+
+<br/>
+<div class="event-proba">
+    <div class="event-card">
+        <div class="event-card-header">
+            
+        </div>
+        <div class="event-card-body">
+            <h2 class="event-card-title">{{ event.venu }}</h2>
+            <ul>
+                <li><strong>Venue:</strong> {{ venue }}</li>
+                <li><strong>Address:</strong> {{ venue.address }}</li>
+                <li><strong>Phone Number:</strong> {{ venue.phone }}</li>
+            </ul>
+            {% if venue.venue_image %}
+                <img src="{{ venue.venue_image.url }}">
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+{% endblock  %}

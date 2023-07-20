@@ -1,0 +1,70 @@
+{% extends 'includes/base.html' %}
+{% block title %} Edit Profile Page {% endblock %}
+{% load static %}
+{% block content %}
+<div class="parent_div_edit_profile">
+    {% if request.user.is_authenticated %}
+      {% if request.user == profile.user %}
+        <div class="form-group">
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="form-group-clear">
+                    {% if profile.profile_pic %}
+                        <img src="{{ profile.profile_pic.url }}" alt="Profile Picture">
+                        <input type="checkbox" name="profile_pic-clear" id="profile_pic-clear_id">
+                        <label for="profile_pic-clear_id">
+                            <i class="fa-solid fa-check" style="color: #ffffff;"></i>Clear
+                            
+                            </i>
+                        </label>
+                    {% else %}
+                        <img src="{% static 'images/user.jpg' %}" >
+                    {% endif %}
+                    
+                </div>
+                <div class="form-group-profilee">
+                    <label for="id_image">Image:</label>
+                    <input type="file" name="profile_pic" accept="image/*" id="id_profile_pic">
+                </div>
+                <div class="form-group-profile">
+                    {{ form.biography.label_tag }}
+                    {{ form.biography }}
+                </div>
+                
+                <div class="form-group-profile">
+                    {{ form.instagram_url.label_tag }}
+                    {{ form.instagram_url }}
+                </div>
+                
+                <div class="form-group-profile">
+                    <label for="id_phone">Phone:</label>
+                    <input type="text" name="phone" id="id_phone" value="{{ profile.phone }}">
+                </div>
+                
+                <div class="form-group-profile">
+                    <label for="id_email">Email:</label>
+                    <input type="text" name="email" id="id_email" value="{{ profile.email }}">
+                </div>
+                
+                <div class="form-group-profile">
+                    <label for="id_birthday">Birthday:</label>
+                    <input type="text" name="birthday" id="id_birthday" value="{{ profile.birthday }}">
+                </div>
+                
+                
+                <button class="form-group-profile-button">Update Profile Page</button>
+            </form>
+            
+            
+        </div>
+      {% else %}
+        <p>You're not allowed here!</p>
+      {% endif %}
+    {% else %}
+      <p>You are not the correct user to edit this page.</p>
+    {% endif %}
+  </div>
+  
+  {% endblock content %}
+      
+      

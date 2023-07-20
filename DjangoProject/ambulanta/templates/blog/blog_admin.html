@@ -1,0 +1,93 @@
+{% extends 'includes/base.html' %}
+{% block content %}
+{% load static %}
+<div class="parent_list_blogss">
+    <div class="child_list_blogs">
+      <div class="navbar_list">
+        <div class="username_list">
+          <h1>Username</h1>
+        </div>
+        <div class="title_list">
+          <h1>Blog Title</h1>
+        </div>
+        <div class="body_list">
+          <h1>Body</h1>
+        </div>
+        <div class="date_list">
+          <h1>Date</h1>
+        </div>
+        <div class="actions_list">
+          <h1>Actions</h1>
+        </div>
+      </div>
+      <table>
+        <tbody>
+          {% for blog in page_obj %}
+          <tr class="blog-row7">
+            <td>
+              <div class="blog_list_author_pic">
+                {% if blog.author.profile.profile_pic %}
+                  <img src="{{ blog.author.profile.profile_pic.url }}">
+                {% else %}
+                  <img src="{% static 'images/user.jpg' %}">
+                {% endif %}
+                <h1>{{ blog.author }}</h1>
+              </div>
+            </td>
+            <td>
+              <div class="blog_list_title">
+                <a class="blog-link7" href="{% url 'blog:article-detail' blog.id %}">{{ blog.title }}</a>
+              </div>
+            </td>
+            <td>
+              <div class="blog_list_body">
+                <p>{{ blog.body|truncatechars:50 }}</p>
+              </div>
+            </td>
+            <td>
+              <div class="blog_list_date">
+                {{ blog.post_date }}
+              </div>
+            </td>
+            <td>
+              <div class="button7-containerr">
+                {% if user is not None and user == blog.author %}
+                  <a href="{% url 'blog:update-post' blog.id %}" class="button_updatee">
+                    <i class="fa-sharp fa-solid fa-pen"></i>
+                  </a>
+                  <a href="{% url 'blog:delete-post' blog.id %}" class="button_dangerr">
+                    <i class="fa-solid fa-trash"></i>
+                  </a>
+                {% else %}
+                  <a href="{% url 'blog:article-detail' blog.id %}" class="see_more">
+                    <i class="fa-regular fa-comment-dots"></i>
+                  </a>
+                {% endif %}
+              </div>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    {% if page_obj.has_other_pages %}
+    <div class="pagination">
+      <span class="step-links">
+        {% if page_obj.has_previous %}
+          <a href="?page=1">&laquo; first</a>
+          <a href="?page={{ page_obj.previous_page_number }}">&lsaquo; previous</a>
+        {% endif %}
+
+        <span class="current-page">
+          Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+        </span>
+
+        {% if page_obj.has_next %}
+          <a href="?page={{ page_obj.next_page_number }}">next &rsaquo;</a>
+          <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+      </span>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

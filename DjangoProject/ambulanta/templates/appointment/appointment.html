@@ -1,0 +1,86 @@
+{% extends 'includes/base.html' %}
+{% load static %}
+{% block content %}
+<div class="parent_div_appointment">
+    <div class="img_div">
+        <img src="{% static 'images/picture_for_appointment.jpg' %}" >
+    </div>
+    <div class="form_appointment">
+        <h1>Appointment Scheduling</h1>
+        {% if message %}
+            {% if message == 'Appointment successfully scheduled!' %}
+                <strong><p class="message success-message"><i class="fa-regular fa-circle-check" style="color: #fafafa;"></i>{{ message }}</p></strong>
+            {% else %}
+                <strong><p class="message"><i class="fa-solid fa-triangle-exclamation" style="color: #fafafa;"></i>{{ message }}</p></strong>
+            {% endif %}
+        {% endif %}
+
+
+        <!--{% if available_appointments %}
+            <h3>Prva tri slobodna termina:</h3>
+            <ul>
+                {% for appointment in available_appointments %}
+                    <li>{{ appointment.appointment_datetime }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}-->
+
+        {% if user.is_authenticated %}
+        <form method="post" action="{% url 'appointment:appointment' %}">
+            {% csrf_token %}
+            <div class="form-row">
+                <div class="form-column">
+                    <label for="patient_name">Patient Name:</label><br/>
+                    <input type="textt" name="patient_name" id="patient_name" required class="larger-input">
+                </div>
+                <div class="form-column">
+                    <label for="animal_species">Animal Species:</label><br/>
+                    <input type="textt" name="animal_species" id="animal_species" required class="larger-input">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-column">
+                    <label for="animal_breed">Animal Breed:</label><br/>
+                    <input type="textt" name="animal_breed" id="animal_breed" required class="larger-input">
+                </div>
+                <div class="form-column">
+                    <label for="animal_age">Animal Age:</label><br/>
+                    <input type="textt" name="animal_age" id="animal_age" required class="larger-input">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-column">
+                    <label for="appointment_time">Time:</label><br/>
+                    <input type="time" name="appointment_time" id="appointment_time" required class="larger-input">
+                </div>
+                <div class="form-column">
+                    <label for="appointment_date">Date:</label><br/>
+                    <input type="date" name="appointment_date" id="appointment_date" required class="larger-input" min='{% now "Y-m-d" %}'>
+                </div>
+            </div>
+            
+            <div class="form-columnn">
+                <label for="appointment_reason">Appointment Reason:</label><br/>
+                <input type="textt" name="appointment_reason" id="appointment_reason" required class="largerr-input">
+            </div>
+            <div class="form-column">
+                <label for="email">Email:</label><br/>
+                <input type="Email" name="email" id="email" required class="larger-input">
+            </div>
+            
+            
+            <!-- Ostatak forme... -->
+            <button type="submitt" class="custom-buttonn">
+                <i class="fa-solid fa-stethoscope"></i> Make An Appointment
+            </button>
+        </form>
+    {% else %}
+        <p>You must be logged in to schedule an appointment</p>
+        <a href="{% url 'users:login' %}">Login</a>
+    {% endif %}
+    
+
+    </div>
+</div>
+
+{% endblock content %}

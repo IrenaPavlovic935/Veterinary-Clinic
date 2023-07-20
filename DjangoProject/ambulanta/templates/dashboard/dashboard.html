@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>My Website</title>
+    <!-- Stylesheet links and other head elements -->
+  </head>
+  <body>
+    <div class="Services1">
+      <div class="services">
+        <h2>{{ page_obj.title }}</h2>
+        <h1>{{ page_obj.title_description }}</h1>
+        <p>{{ page_obj.body }}</p>
+      </div>
+      <div class="Our_Services">
+        {{ page_obj.content|safe }}
+      </div>
+    </div>
+
+    <!-- Other page elements -->
+
+  </body>
+</html>

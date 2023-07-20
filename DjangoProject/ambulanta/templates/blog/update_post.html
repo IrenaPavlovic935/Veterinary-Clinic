@@ -1,0 +1,28 @@
+{% extends 'includes/base.html' %}
+{% block title %} Edit Blog Post {% endblock %}
+{% load static %}
+{% block content %}
+<div class="parent_update_post">
+    <div class="update_post_card">
+        {% if user.is_authenticated %}
+                {% if user.id == post.author.id %}
+                    <h1>Update Post</h1>
+                    <form method="POST" enctype="multipart/form-data">
+                        <div class="p_element_for_update_page">
+                            {% csrf_token %}
+                            {{ form.as_p }}
+                        </div>
+                        <button>Update</button>
+                        <a href="{% url 'blog:all-blog' %}">Back</a>
+                    </form>
+                {% else %}
+                    <p>You're not allowed here!</p>
+                {% endif %}
+
+                
+            {% else %}
+                <p>You are not allowed here!</p>
+            {% endif %}
+    </div> 
+</div>   
+{% endblock content %}

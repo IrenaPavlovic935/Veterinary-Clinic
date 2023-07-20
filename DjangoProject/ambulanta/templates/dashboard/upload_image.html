@@ -1,0 +1,16 @@
+{% extends 'includes/base.html' %}
+{% load static %}
+{% block content %}
+<div class="add_image_div">
+  <img src="https://us.123rf.com/450wm/likozor/likozor1809/likozor180900192/107847658-cute-orange-fat-cat-and-digital-tablet.jpg?ver=6" alt="">
+  <div class="overlayy">
+    <form method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <div class="add_image_button">
+        <button type="submitttt">Add Image</button>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock content %}
