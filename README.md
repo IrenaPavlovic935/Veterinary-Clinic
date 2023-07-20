@@ -1,5 +1,6 @@
 # Veterinarska Ambulanta Web Stranica
-![Logo veterinarske ambulante](https://github.com/IrenaPavlovic935/Veterinary-Clinic/raw/main/logo-header.png)
+![Logo veterinarske ambulante](https://github.com/IrenaPavlovic935/Veterinary-Clinic/raw/main/DjangoProject/ambulanta/static/images/logoo.png)
+
 
 
 Ovo je web stranica veterinarske ambulante koja je osmišljena kako bi korisnicima pojednostavila brigu o njihovim ljubimcima. Na ovoj web stranici korisnici mogu zakazivati termine, kontaktirati veterinare, pristupiti zanimljivom sadržaju poput galerije ljubimaca i blogova.
